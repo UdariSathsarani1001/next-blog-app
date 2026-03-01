@@ -1,17 +1,19 @@
-"use client";
-import BlogList from "@/Components/BlogList";
-import Footer from "@/Components/Footer";
-import Header from "@/Components/Header";
-import { ToastContainer } from "react-toastify";
-import 'react-toastify/dist/ReactToastify.css';
+import BlogList from "@/components/blog/BlogList";
+import Footer from "@/components/layout/Footer";
+import Navbar from "@/components/layout/Navbar";
+import Hero from "@/components/layout/Hero";
+import { Toaster } from "@/components/ui/toaster";
 
 export default function Home() {
   return (
-    <>
-      <ToastContainer theme="dark"/>
-      <Header/>
-      <BlogList/>
-      <Footer/>
-    </>
+    <div className="flex min-h-screen flex-col">
+      <Navbar />
+      <main className="flex-1">
+        <Hero />
+        <BlogList />
+      </main>
+      <Footer />
+      <Toaster />
+    </div>
   );
 }

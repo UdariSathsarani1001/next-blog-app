@@ -1,7 +1,7 @@
 import { ConnectDB } from "@/lib/config/db"
 import BlogModel from "@/lib/models/BlogModels";
 const { NextResponse } = require("next/server")
-import {writeFile} from 'fs/promises'
+import { writeFile } from 'fs/promises'
 const fs = require('fs');
 
 const LoadDB = async () => {
@@ -11,19 +11,19 @@ const LoadDB = async () => {
 LoadDB();
 
 //api endpoint for getting all blogs
-export async function GET(request){
+export async function GET(request) {
     const blogId = request.nextUrl.searchParams.get('id');
-    if(blogId){
+    if (blogId) {
         const blog = await BlogModel.findById(blogId);
-        return NextResponse.json({blog})
-    }else{
+        return NextResponse.json({ blog })
+    } else {
         const blogs = await BlogModel.find({});
-        return NextResponse.json({blogs})
+        return NextResponse.json({ blogs })
     }
 }
 
 //api endpoint for creating blog
-export async function POST(request){
+export async function POST(request) {
     const formData = await request.formData();
     const timestamp = Date.now();
 
@@ -31,9 +31,9 @@ export async function POST(request){
     const imageByteData = await image.arrayBuffer();
     const buffer = Buffer.from(imageByteData);
     const path = `./public/${timestamp}_${image.name}`;
-    await writeFile(path,buffer);
+    await writeFile(path, buffer);
     const imgUrl = `/${timestamp}_${image.name}`;
-    
+
     const blogData = {
         title: `${formData.get('title')}`,
         description: `${formData.get('description')}`,
@@ -45,16 +45,55 @@ export async function POST(request){
 
     await BlogModel.create(blogData);
     console.log("Blog Created");
-    
 
-    return NextResponse.json({success: true, msg: "Blog Created"})
+
+    return NextResponse.json({ success: true, msg: "Blog Created" })
 }
 
 //Creating API Endpoint to delete Blogs
-export async function DELETE(request){
+export async function DELETE(request) {
     const id = await request.nextUrl.searchParams.get('id');
     const blog = await BlogModel.findById(id);
-    fs.unlink(`./public${blog.image}`, ()=>{});
+    fs.unlink(`./public${blog.image}`, () => { });
     await BlogModel.findByIdAndDelete(id);
-    return NextResponse.json({msg:"Blog Deleted"})
+    return NextResponse.json({ msg: "Blog Deleted" })
+}
+
+//api endpoint for updating blog
+export async function PUT(request) {
+    try {
+        const formData = await request.formData();
+        const id = request.nextUrl.searchParams.get('id');
+
+        const blogData = {
+            title: `${formData.get('title')}`,
+            description: `${formData.get('description')}`,
+            category: `${formData.get('category')}`,
+            author: `${formData.get('author')}`,
+            authorImg: `${formData.get('authorImg')}`
+        }
+
+        const image = formData.get('image');
+        if (image && typeof image !== 'string' && image.name) {
+            const timestamp = Date.now();
+            const imageByteData = await image.arrayBuffer();
+            const buffer = Buffer.from(imageByteData);
+            const path = `./public/${timestamp}_${image.name}`;
+            await writeFile(path, buffer);
+            blogData.image = `/${timestamp}_${image.name}`;
+
+            // Delete old image
+            const oldBlog = await BlogModel.findById(id);
+            if (oldBlog && oldBlog.image) {
+                fs.unlink(`./public${oldBlog.image}`, (err) => {
+                    if (err) console.log("Old image delete error:", err);
+                });
+            }
+        }
+
+        await BlogModel.findByIdAndUpdate(id, blogData);
+        return NextResponse.json({ success: true, msg: "Blog Updated" })
+    } catch (error) {
+        return NextResponse.json({ success: false, msg: "Update Failed", error: error.message })
+    }
 }
