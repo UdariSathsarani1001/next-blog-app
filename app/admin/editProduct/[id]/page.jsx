@@ -34,33 +34,32 @@ const EditProductPage = () => {
         authorImg: '/assets/profile_icon.png'
     })
 
-    const fetchBlogData = async () => {
-        try {
-            const response = await axios.get('/api/blog', { params: { id } })
-            const blog = response.data.blog
-            setData({
-                title: blog.title,
-                description: blog.description,
-                category: blog.category,
-                author: blog.author,
-                authorImg: blog.authorImg
-            })
-            setExistingImage(blog.image)
-        } catch (error) {
-            toast({
-                variant: "destructive",
-                title: "Error",
-                description: "Failed to fetch blog data.",
-            })
-            router.push('/admin/blogList')
-        } finally {
-            setFetching(false)
-        }
-    }
-
     useEffect(() => {
+        const fetchBlogData = async () => {
+            try {
+                const response = await axios.get('/api/blog', { params: { id } })
+                const blog = response.data.blog
+                setData({
+                    title: blog.title,
+                    description: blog.description,
+                    category: blog.category,
+                    author: blog.author,
+                    authorImg: blog.authorImg
+                })
+                setExistingImage(blog.image)
+            } catch (error) {
+                toast({
+                    variant: "destructive",
+                    title: "Error",
+                    description: "Failed to fetch blog data.",
+                })
+                router.push('/admin/blogList')
+            } finally {
+                setFetching(false)
+            }
+        }
         if (id) fetchBlogData()
-    }, [id])
+    }, [id, router])
 
     const onChangeHandler = (e) => {
         const { name, value } = e.target
@@ -165,10 +164,11 @@ const EditProductPage = () => {
                                 </div>
                             ) : existingImage ? (
                                 <div className="relative w-full aspect-video max-w-xl overflow-hidden rounded-xl shadow-lg">
-                                    <img
+                                    <Image
                                         src={existingImage}
                                         alt="Existing"
-                                        className="object-cover w-full h-full"
+                                        fill
+                                        className="object-cover"
                                     />
                                     <label htmlFor="image" className="absolute inset-0 bg-black/40 opacity-0 group-hover:opacity-100 transition-opacity flex items-center justify-center cursor-pointer">
                                         <div className="flex flex-col items-center gap-2 text-white">

@@ -23,7 +23,7 @@ const ContactPage = () => {
             setLoading(false)
             toast({
                 title: "Message Sent!",
-                description: "We've received your message and will get back to you soon.",
+                description: "We&apos;ve received your message and will get back to you soon.",
             })
             e.target.reset()
         }, 1500)
@@ -40,10 +40,10 @@ const ContactPage = () => {
                             Contact Us
                         </Badge>
                         <h1 className="text-4xl font-extrabold tracking-tight sm:text-6xl mb-6">
-                            Let's Start a <span className="text-primary italic">Conversation</span>
+                            Let&apos;s Start a <span className="text-primary italic">Conversation</span>
                         </h1>
                         <p className="mx-auto max-w-2xl text-lg text-muted-foreground sm:text-xl leading-relaxed">
-                            Have a question, feedback, or a story to share? We'd love to hear from you.
+                            Have a question, feedback, or a story to share? We&apos;d love to hear from you.
                             Our team is here to help and listen.
                         </p>
                     </div>
@@ -56,7 +56,7 @@ const ContactPage = () => {
                             <div className="space-y-4">
                                 <h2 className="text-3xl font-bold tracking-tight">Get in Touch</h2>
                                 <p className="text-muted-foreground text-lg leading-relaxed">
-                                    Whether you're a reader with a question or a creator looking to collaborate,
+                                    Whether you&apos;re a reader with a question or a creator looking to collaborate,
                                     reach out through any of these channels.
                                 </p>
                             </div>
@@ -102,7 +102,7 @@ const ContactPage = () => {
                                     <MessageSquare className="h-6 w-6 text-primary" />
                                     Send us a Message
                                 </CardTitle>
-                                <CardDescription>Fill out the form below and we'll get back to you as soon as possible.</CardDescription>
+                                <CardDescription>Fill out the form below and we&apos;ll get back to you as soon as possible.</CardDescription>
                             </CardHeader>
                             <CardContent className="p-8 pt-4">
                                 <form onSubmit={handleSubmit} className="space-y-6">

@@ -17,7 +17,7 @@ export default function Error({ error, reset }) {
             <div className="space-y-2">
                 <h2 className="text-2xl font-bold tracking-tight">Something went wrong!</h2>
                 <p className="text-muted-foreground max-w-md">
-                    We encountered an unexpected error. Don't worry, our team has been notified.
+                    We encountered an unexpected error. Don&apos;t worry, our team has been notified.
                 </p>
             </div>
             <div className="flex gap-4">

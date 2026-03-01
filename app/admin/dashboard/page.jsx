@@ -20,24 +20,23 @@ const DashboardPage = () => {
     const [counts, setCounts] = useState({ blogs: 0, subs: 0 })
     const [loading, setLoading] = useState(true)
 
-    const fetchCounts = async () => {
-        try {
-            const [blogRes, emailRes] = await Promise.all([
-                axios.get('/api/blog'),
-                axios.get('/api/email')
-            ])
-            setCounts({
-                blogs: blogRes.data.blogs?.length || 0,
-                subs: emailRes.data.emails?.length || 0
-            })
-        } catch (error) {
-            console.error("Error fetching dashboard data:", error)
-        } finally {
-            setLoading(false)
-        }
-    }
-
     useEffect(() => {
+        const fetchCounts = async () => {
+            try {
+                const [blogRes, emailRes] = await Promise.all([
+                    axios.get('/api/blog'),
+                    axios.get('/api/email')
+                ])
+                setCounts({
+                    blogs: blogRes.data.blogs?.length || 0,
+                    subs: emailRes.data.emails?.length || 0
+                })
+            } catch (error) {
+                console.error("Error fetching dashboard data:", error)
+            } finally {
+                setLoading(false)
+            }
+        }
         fetchCounts()
     }, [])
 
@@ -53,7 +52,7 @@ const DashboardPage = () => {
             <div className="flex flex-col sm:flex-row items-center justify-between gap-4">
                 <div>
                     <h2 className="text-3xl font-bold tracking-tight text-foreground text-center sm:text-left">Welcome back, Admin!</h2>
-                    <p className="text-muted-foreground text-center sm:text-left">Here's what's happening with Blogify today.</p>
+                    <p className="text-muted-foreground text-center sm:text-left">Here&apos;s what&apos;s happening with Blogify today.</p>
                 </div>
                 <div className="flex gap-4">
                     <Button variant="outline" asChild className="rounded-full">

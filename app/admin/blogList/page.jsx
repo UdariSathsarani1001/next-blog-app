@@ -16,6 +16,7 @@ import { Badge } from "@/components/ui/badge"
 import { Avatar, AvatarFallback, AvatarImage } from "@/components/ui/avatar"
 import { toast } from "@/hooks/use-toast"
 import { Trash2, Edit, ExternalLink, MoreVertical } from 'lucide-react'
+import Image from 'next/image'
 import Link from 'next/link'
 import {
   DropdownMenu,
@@ -109,7 +110,7 @@ const BlogListPage = () => {
                     <TableCell className="px-6 py-4">
                       <div className="flex items-center gap-3">
                         <div className="relative h-10 w-16 overflow-hidden rounded-md border">
-                          <img src={item.image} alt={item.title} className="object-cover w-full h-full" />
+                          <Image src={item.image} alt={item.title} fill className="object-cover" />
                         </div>
                         <span className="font-semibold line-clamp-1">{item.title}</span>
                       </div>

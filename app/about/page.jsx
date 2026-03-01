@@ -24,7 +24,7 @@ const AboutPage = () => {
                             Elevating the Art of <span className="text-primary italic">Storytelling</span>
                         </h1>
                         <p className="mx-auto max-w-2xl text-lg text-muted-foreground sm:text-xl leading-relaxed">
-                            Blogify is more than just a blog. It's a platform dedicated to sharing high-quality insights,
+                            Blogify is more than just a blog. It&apos;s a platform dedicated to sharing high-quality insights,
                             tutorials, and creative thoughts that inspire growth and innovation.
                         </p>
                     </div>

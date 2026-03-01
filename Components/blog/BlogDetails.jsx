@@ -16,22 +16,21 @@ const BlogDetails = ({ id }) => {
     const [data, setData] = useState(null)
     const [loading, setLoading] = useState(true)
 
-    const fetchBlogData = async () => {
-        try {
-            setLoading(true)
-            const response = await axios.get('/api/blog', {
-                params: { id }
-            })
-            setData(response.data.blog)
-        } catch (error) {
-            console.error("Error fetching blog data:", error)
-        } finally {
-            setLoading(false)
-        }
-    }
-
     useEffect(() => {
-        fetchBlogData()
+        const fetchBlogData = async () => {
+            try {
+                setLoading(true)
+                const response = await axios.get('/api/blog', {
+                    params: { id }
+                })
+                setData(response.data.blog)
+            } catch (error) {
+                console.error("Error fetching blog data:", error)
+            } finally {
+                setLoading(false)
+            }
+        }
+        if (id) fetchBlogData()
     }, [id])
 
     if (loading) {
