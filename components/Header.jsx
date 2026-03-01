@@ -1,4 +1,4 @@
-import { assets } from '@/Assets/assets'
+import { assets } from '@/assets/assets'
 import axios from 'axios';
 import Image from 'next/image'
 import React, { useState } from 'react'
@@ -12,12 +12,12 @@ const Header = () => {
     e.preventDefault();
     const formData = new FormData();
     formData.append("email", email);
-    const responce =  await axios.post('/api/email', formData);
+    const responce = await axios.post('/api/email', formData);
     if (responce.data.success) {
       toast.success(responce.data.msg);
       setEmail("");
     }
-    else{
+    else {
       toast.error("Error");
     }
   }
@@ -32,8 +32,8 @@ const Header = () => {
         <h1 className='text-3xl sm:text-5xl font-bold'>Latest Blogs</h1>
         <p className='mt-10 max-w-[740px] m-auto text-xs sm:text-base'>Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua</p>
         <form onSubmit={onSubmitHandler} className='flex justify-between max-w-[500px] scale-75 sm:scale-100 mx-auto mt-10 border border-black shadow-[-7px_7px_0px_#000000]'>
-            <input onChange={(e)=>setEmail(e.target.value)} value={email} type="email" placeholder='Enter your email' className='pl-4 outline-none' />
-            <button type='submit' className='border-l border-black py-4 px-4 sm:px-8 active:bg-gray-600 active:text-white'>Subscribe</button>
+          <input onChange={(e) => setEmail(e.target.value)} value={email} type="email" placeholder='Enter your email' className='pl-4 outline-none' />
+          <button type='submit' className='border-l border-black py-4 px-4 sm:px-8 active:bg-gray-600 active:text-white'>Subscribe</button>
         </form>
       </div>
 
